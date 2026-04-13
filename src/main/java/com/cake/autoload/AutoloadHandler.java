@@ -1,5 +1,6 @@
 package com.cake.autoload;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -16,6 +17,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
+import org.lwjgl.glfw.GLFW;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -84,7 +86,15 @@ public class AutoloadHandler {
             if (!(mc.screen instanceof TitleScreen)) {
                 return;
             }
-
+            
+            //Check if F5 is held down to skip autoload
+            long window = Minecraft.getInstance().getWindow().getWindow();
+            boolean isF5Down = InputConstants.isKeyDown(window, GLFW.GLFW_KEY_F5);
+            if (isF5Down) {
+                showToast(mc, "Autoload skipped: F5 held down");
+                return;
+            }
+            
             if (AutoloadConfig.ALWAYS_LOAD_LAST.get()) {
                 handleAlwaysLoadLast(mc);
             } else {
@@ -151,18 +161,18 @@ public class AutoloadHandler {
 
             Button wrapper = Button.builder(button.getMessage(), btn -> {
                 userQuitCleanly = true;
-                AutoloadMod.LOGGER.info("Clean exit initiated from pause menu");
+                AutoloadMod.LOGGER.info("Clean exit initiated from pause menu, autoload file removed...");
                 button.onPress();
             }).bounds(button.getX(), button.getY(), button.getWidth(), button.getHeight()).build();
 
             event.removeListener(button);
             event.addListener(wrapper);
-            AutoloadMod.LOGGER.debug("Wrapped 'Save and Quit' button for clean exit detection");
             break;
         }
     }
 
     private static void openWorld(Minecraft mc, String levelId) {
+        showToast(mc, "World autoloaded! Use F5 to skip on next run");
         mc.createWorldOpenFlows().openWorld(levelId, () -> {
             AutoloadMod.LOGGER.warn("Failed to open world '{}'", levelId);
             mc.setScreen(new TitleScreen());

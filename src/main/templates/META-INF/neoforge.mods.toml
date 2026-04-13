@@ -11,6 +11,8 @@ Automatically re-opens your last played world after a crash or restart.
 
 Uses file-based crash detection to determine if the game closed unexpectedly.
 Includes an always_load_last config option to load your last world on every launch.
+
+Holding F5 during launch will skip autoload and put you at the main menu as normal.
 '''
 
 [[dependencies.${mod_id}]]

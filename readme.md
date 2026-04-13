@@ -2,12 +2,14 @@
 
 Instead of having to re-open your singleplayer world every time you stop runClient, just have it reopen your world!
 
-![Awesome diagram showing skipping the main menu](./img/img.png)
+![Awesome diagram showing skipping the main menu](https://github.com/cakeGit/AutoLoader/blob/main/img/img.png?raw=true)
+
+During game loading, just **hold F5 and it will skip the autoload process!**
 
 ## Getting started
 
 For Neoforge 1.21.1, you can just add the jar to your local mods folder.
-However, for that and other versions, it can be helpful to add it as a dev dependency.
+However, it can be helpful to add it as a dev dependency, meaning all developers will get it automatically.
 
 First, include the azmod maven (https://maven.azmod.net/):
 
@@ -19,9 +21,9 @@ maven {
 ```
 
 Then, add the dependency (Versioning is <modversion>+<loader><mcversion>):
-```
+```gradle
 dependencies {
-    //Include the latest version of autoloader for neoforge 1.21.1, other supported versions are available, check CF or MR for availability
+    //Include the latest version of autoloader for neoforge 1.21.1, other supported versions may be available, check CF or MR for availability
     modImplementation("net.azmod:autoloader:[1.0.0,)+neoforge1.21.1")
 }
 ```
