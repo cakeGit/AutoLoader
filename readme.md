@@ -15,16 +15,16 @@ First, include the azmod maven (https://maven.azmod.net/):
 
 ```gradle
 maven {
-    name = "azmodMavenReleases"
-    url = uri("https://maven.azmod.net/releases")
+    name = 'azmod-maven'
+    url = "https://maven.azmod.net/releases"
 }
 ```
 
 Then, add the dependency (Versioning is <modversion>+<loader><mcversion>):
 ```gradle
 dependencies {
-    //Include the latest version of autoloader for neoforge 1.21.1, other supported versions may be available, check CF or MR for availability
-    modImplementation("net.azmod:autoloader:[1.0.0,)+neoforge1.21.1")
+    //Include the latest 1.0.0 or newer version of autoloader for neoforge 1.21.1, other supported versions may be available, check CF or MR for availability
+    implementation("com.cake.autoload:autoload-neoforge-1.21.1:1.+")
 }
 ```
 

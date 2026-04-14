@@ -88,7 +88,7 @@ publishing {
             from components.java
             artifact tasks.named('sourcesJar')
             groupId = mod_group_id
-            artifactId = mod_id
+            artifactId = mod_id + "-neoforge-1.21.1"
             version = project.version
         }
     }
